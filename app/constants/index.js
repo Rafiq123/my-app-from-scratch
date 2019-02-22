@@ -1,5 +1,6 @@
 export default {
     "FETCH_POSTS": "FETCH_POSTS",
     "ADD_POSTS": "ADD_POSTS",
-    "DIALOG_UPDATE": "DIALOG_UPDATE"
+    "DIALOG_UPDATE": "DIALOG_UPDATE",
+    "SHOW_TOAST" : "SHOW_TOAST"
 }

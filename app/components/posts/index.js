@@ -9,12 +9,14 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
+import Snackbar from '@material-ui/core/Snackbar';
 
-import { fetchPosts } from '../../actions/posts';
+import { fetchPosts, addPost, showToast } from '../../actions/posts';
 import { updateDialog } from '../../actions/dialog';
 
 
-import Popup from '../popUp'
+import Popup from '../popUp';
+import PostForm from './postForm';
 
 const styles = theme => ({
     root: {
@@ -32,28 +34,24 @@ class Posts extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            dialogConfig: {
-                title: 'Add Posts',
-                dialogContent: "Enter your post details",
-                buttons: [
-                    {
-                        action: this.handleClose,
-                        type: 'primary',
-                        title: 'Cancel'
-                    },
-                    {
-                        action: this.handleSubmit,
-                        type: 'primary',
-                        title: 'Submit'
-                    }
-                ]
+            postData: {
+                title: '',
+                userId: '',
+                body: ''
             }
+
         }
     }
 
     handleSubmit = () => {
-        console.log('submit');
+        this.props.addPost(this.state.postData);
         this.props.updateDialog(false);
+        // var toastData = {
+        //     ...this.props.toastData,
+        //     open: true,
+        //     message: "Post saved successfully!"
+        // }
+        // this.props.showToast(toastData);
     }
 
     handleClose = () => {
@@ -68,13 +66,48 @@ class Posts extends Component {
         this.props.fetchPosts();
     }
 
+    handleChange = (e) => {
+        var prevState = { ...this.state.postData }
+        prevState[e.target.name] = e.target.value;
+        this.setState({ postData: prevState });
+    }
+
     render() {
-        const { classes, myPosts } = this.props;
-        const { dialogConfig } = this.state;
+        const { classes, myPosts, toast } = this.props;
+        const { postData, toastData } = this.state;
+        const { vertical, horizontal, message, open } = toast;
+        const dialogConfig = {
+            title: 'Add Posts',
+            buttons: [
+                {
+                    action: this.handleClose,
+                    type: 'primary',
+                    title: 'Cancel',
+                    variant: "default"
+                },
+                {
+                    action: this.handleSubmit,
+                    type: 'primary',
+                    title: 'Submit',
+                    variant: "contained"
+                }
+            ]
+        };
         return (
-            <div>
+            <div className="posts">
+                {/* <Snackbar
+                    anchorOrigin={{ vertical, horizontal }}
+                    open={open}
+                    autoHideDuration={3000}
+                    message={<span id="message-id">{message}</span>}
+                /> */}
                 <Popup dialogConfig={dialogConfig} >
-                    <h1>Test</h1>
+                    {/* lifting state up from post form  */}
+                    <PostForm
+                        title={postData.title}
+                        userId={postData.userId}
+                        body={postData.body}
+                        onUpdateFields={this.handleChange} />
                 </Popup>
 
                 <Paper className={classes.root}>
@@ -125,10 +158,11 @@ class Posts extends Component {
     }
 }
 
-const mapStateToProps = ({ posts }) => {
+const mapStateToProps = ({ posts, toast }) => {
     return {
-        myPosts: posts.items
+        myPosts: posts.posts,
+        toast: toast
     }
 }
 
-export default connect(mapStateToProps, { fetchPosts, updateDialog })(withStyles(styles)(Posts));
+export default connect(mapStateToProps, { fetchPosts, updateDialog, addPost, showToast })(withStyles(styles)(Posts));

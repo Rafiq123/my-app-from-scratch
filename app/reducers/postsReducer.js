@@ -3,7 +3,12 @@ const { FETCH_POSTS, ADD_POSTS } = CONSTANTS;
 
 
 const initialState = {
-    items: []
+    posts: [],
+    post : {
+        title: '',
+        userId: '',
+        body: ''
+    }
 };
 
 export default (state = initialState, action) => {
@@ -11,7 +16,12 @@ export default (state = initialState, action) => {
         case FETCH_POSTS:
             return {
                 ...state,
-                items: action.payload
+                posts: action.payload
+            }
+        case ADD_POSTS:
+            return {
+                ...state,
+                post : action.payload
             }
         default:
             return state;
