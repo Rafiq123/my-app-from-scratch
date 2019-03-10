@@ -5,12 +5,32 @@ import { Switch, Route } from 'react-router-dom';
 import Header from './components/header';
 import Posts from './components/posts';
 
+import HooksExample from './components/hooks-examples';
+import Hook from './components/hooks-examples/hooks-fn';
+
+import Test from './components/pure-components/regular-component';
+import Pure from './components/pure-components/pure-component'
+
+import Username from './components/use-hoc/user';
+
+import Locations from './components/Location';
+
 class App extends Component {
+
     render() {
         return (
             <div className="App">
-                <Header />
-                <Posts />
+                {/* <Header /> */}
+                {/* <Posts /> */}
+                {/* <HooksExample />
+                <hr />
+                <Hook /> */}
+                {/* <Test />
+                <Pure /> */}
+
+                {/* <Username >Rafiq</Username> */}
+
+                <Locations />
             </div>
         );
 
