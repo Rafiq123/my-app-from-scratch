@@ -15,22 +15,28 @@ import Username from './components/use-hoc/user';
 
 import Locations from './components/Location';
 
-class App extends Component {
+import Lifecycle from './components/life-cycle-methods';
 
+import MouseTracker from './components/render-props'
+
+class App extends Component {
+    
     render() {
         return (
             <div className="App">
                 {/* <Header /> */}
                 {/* <Posts /> */}
-                {/* <HooksExample />
-                <hr />
+                {/* <HooksExample /> */}
+                {/* <hr />
                 <Hook /> */}
                 {/* <Test />
                 <Pure /> */}
 
                 {/* <Username >Rafiq</Username> */}
 
-                <Locations />
+                {/* <Locations/> */}
+                {/* <Lifecycle/> */}
+                <MouseTracker />
             </div>
         );
 

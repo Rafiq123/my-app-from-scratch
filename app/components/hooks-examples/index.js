@@ -4,6 +4,7 @@ import Row from './row';
 
 export default class User extends Component {
     constructor(props) {
+        console.log('constructor');
         super(props);
         this.state = {
             firstName: "Rafiq",
@@ -15,16 +16,22 @@ export default class User extends Component {
     }
 
     componentWillMount() {
+        console.log('componentWillMount');
         document.title = `${this.state.firstName} ${this.state.lastName}`;
         document.addEventListener('resize', this.handleResize);
     }
 
     componentWillUnmount = () => {
+        console.log('componentWillUnmount');
         document.removeEventListener('resize', this.handleResize);
     }
     
+    componentDidMount = () => {
+        console.log('componentDidMount');
+    }
 
     componentDidUpdate = (prevProps, prevState) => {
+        console.log('componentDidUpdate');
         document.title = `${this.state.firstName} ${this.state.lastName}`;
     }
 
@@ -37,6 +44,7 @@ export default class User extends Component {
     }
 
     render() {
+        console.log('render');
         return (
             <div>
                 <Row>
